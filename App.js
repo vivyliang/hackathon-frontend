@@ -12,6 +12,7 @@ import { navigationRef } from './app/routes/routes';
 
 //Screen components
 import LoginPage from './app/screens/LoginPage';
+import RegisterPage from './app/screens/RegisterPage';
 
 export default class App extends Component {
   render() {
@@ -20,6 +21,7 @@ export default class App extends Component {
         <NavigationContainer ref={navigationRef}>
           <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
             <Stack.Screen name="Login" component={LoginPage} />
+            <Stack.Screen name="Register" component={RegisterPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

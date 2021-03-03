@@ -3,13 +3,12 @@ import qs from 'qs';
 import * as RootNavigation from '../routes/routes';
 
 export const userService = {
-    login,
-    logout,
+    register
 };
 
-function login(userObj) {
+function register(userObj) {
     return new Promise( (resolve, reject) => {
-        axios.post("https://arcane-shore-64990.herokuapp.com/login", qs.stringify(userObj), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+        axios.post("https://arcane-shore-64990.herokuapp.com/register", qs.stringify(userObj), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
         .then( (user) => {
             console.log(user.data);
             resolve(user);
@@ -21,10 +20,3 @@ function login(userObj) {
         })
     
 };
-
-function logout() {
-    return axios.get("https://arcane-shore-64990.herokuapp.com/logout")
-    .then(() => {
-        RootNavigation.navigate('Login');
-    })
-}

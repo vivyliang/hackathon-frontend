@@ -4,7 +4,7 @@ import { login } from '../actions/auth-action';
 import * as RootNavigation from '../routes/routes';
 
 //view stuff
-import { View, Text, ImageBackground, StyleSheet,TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, ImageBackground,TouchableOpacity, Dimensions } from 'react-native';
 import { TextInput,  } from 'react-native-gesture-handler';
 import { styles } from '../constants/styles';
 
@@ -47,11 +47,13 @@ const LoginPage = (prosp) => {
                         <Text style={styles.buttonText}>LOGIN</Text>
                 </TouchableOpacity>
                 <TouchableOpacity 
-                    style={styles.loginButton}
                     onPress={() => {
                         RootNavigation.navigate('Register')
                     }} >
-                        <Text style={styles.buttonText}>REGISTER</Text>
+                        <View style={styles.rowView}>
+                        <Text style={styles.forgotPassword}>Don't have an account? </Text>
+                        <Text style={styles.signUpButton}>Sign up here</Text>
+                        </View>
                 </TouchableOpacity>
             </ImageBackground>
         </View>
