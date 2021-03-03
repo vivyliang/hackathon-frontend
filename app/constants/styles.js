@@ -41,6 +41,16 @@ export const styles = StyleSheet.create({
         height: 50,
         color: "black"
     },
+    smallText: {
+        fontSize: 10,
+        color: "black"
+    },
+    medText: {
+        fontSize: 15,
+        color: "black",
+        alignSelf: 'flex-end',
+        fontWeight: 'bold'
+    },
     forgotPassword: {
         color: "black",
         fontSize: 12,
@@ -122,6 +132,24 @@ export const styles = StyleSheet.create({
         marginTop: '2.5%',
         justifyContent: 'center',
     },
+    smallInput: {
+        width: Math.round(width) * 0.1,
+        backgroundColor: "#4d70ff",
+        borderRadius: 3,
+        height: 20,
+        padding: 5,
+        marginTop: '2.5%',
+        justifyContent: 'center',
+        alignSelf: 'flex-end'
+    },
+    roundInput: {
+        width: Math.round(width) * 0.6,
+        backgroundColor: "#4d70ff",
+        color: 'white',
+        padding: 10,
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
     dobView: {
         width: Math.round(width) * 0.2,
         justifyContent: "center",
@@ -129,18 +157,18 @@ export const styles = StyleSheet.create({
         marginTop: '2%',
         zIndex: 2,
     },
-    goalView: {
-        width: Math.round(width) * 0.4,
-        justifyContent: "center",
-        alignSelf: 'center',
-        marginTop: '2%',
-    },
     genderView: {
         width: Math.round(width) * 0.8,
         justifyContent: "center",
         alignSelf: 'center',
         marginTop: '2%',
         zIndex: 1,
+    },
+    goalView: {
+        width: Math.round(width) * 0.8,
+        alignSelf: 'center',
+        zIndex: 1,
+        marginTop: '25%'
     },
     tabView: {
         flex: 1,

@@ -10,6 +10,7 @@ import { View, Text, ImageBackground, TouchableOpacity, Dimensions } from 'react
 import { TextInput, } from 'react-native-gesture-handler';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { styles } from '../constants/styles';
+import { Icon } from 'react-native-elements';
 
 const CreateGoalPage = (props) => {
     const user = props.auth.user;
@@ -18,24 +19,56 @@ const CreateGoalPage = (props) => {
     const [formDisplay, setFormDisplay] = useState("none");
     const [target, setTarget] = useState('');
     const [deadline, setDeadline] = useState(new Date());
+    let [showIcons, setShowIcons] = useState(false);
+    let [color, setColor] = useState(false);
 
     const onDateChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
         setDeadline(currentDate)
     };
 
+    let renderIcons = () => {
+        //only renders for exercise atm
+        return (
+            <View style={styles.centered}>
+                <View style={styles.rowView}>
+                    <Icon reverse size={30} name='running' type='font-awesome-5' reverseColor={ color ? '#5ee67e' : '#4d70ff'} onPress={() => {setSelectedGoal('Running'); setFormDisplay("block"); setColor(true)}} />
+                    <Icon reverse size={30} name='dumbbell' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
+                    <Icon reverse size={30} name='swimmer' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
+                </View>
+                <View style={styles.rowView}>
+                    <Text style={styles.smallText}>RUNNING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
+                    <Text style={styles.smallText}>WEIGHTLIFTING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
+                    <Text style={styles.smallText}>SWIMMING</Text>
+                </View>
+                <View style={styles.rowView}>
+                    <Icon reverse size={30} name='hiking' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
+                    <Icon reverse size={30} name='bicycle' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
+                    <Icon reverse size={30} name='basketball-ball' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
+                </View>
+                <View style={styles.rowView}>
+                    <Text style={styles.smallText}>HIKING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
+                    <Text style={styles.smallText}>CYCLING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
+                    <Text style={styles.smallText}>SPORTS</Text>
+                </View>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.container}>
             <ImageBackground
                 style={styles.container}
                 source={require('../assets/creategoalpage.png')}>
-                <View style={styles.rowView}>
                     <View style={styles.goalView}>
                         <DropDownPicker
                             items={[
-                                { label: "Exercise", value: "Exercise" },
-                                { label: "Mindfulness", value: "Mindfulness" },
-                                { label: "Lifestyle", value: "Lifestyle" }
+                                { label: "Mindfullness", value: "Mindfullness" },
+                                { label: "Productivity", value: "Productivity" },
+                                { label: "Fitness", value: "Exercise" },
+                                { label: "Finance", value: "Finance" },
+                                { label: "Diet", value: "Diet" },
+                                { label: "Writing", value: "Writing" },
                             ]}
                             placeholder='Select a type of goal'
                             containerStyle={{ height: 40 }}
@@ -55,48 +88,46 @@ const CreateGoalPage = (props) => {
                                             })
                                         }
                                         setGoalLabels(goalLabels);
+                                        setShowIcons(true);
 
                                     }).catch((err) => console.log(err));
                             }}
                         />
-                    </View>
-                    <View style={styles.goalView}>
-                        <DropDownPicker
-                            items={goalLabels}
-                            placeholder='Select goal'
-                            containerStyle={{ height: 40 }}
-                            style={{ backgroundColor: '#4d70ff' }}
-                            itemStyle={{ justifyContent: 'flex-start' }}
-                            dropDownStyle={{ backgroundColor: '#4d70ff' }}
-                            labelStyle={{ color: 'white' }}
-                            onChangeItem={text => {
-                                setSelectedGoal(text);
-                                setFormDisplay("blocl")
-                            }}
-                        />
-                    </View>
 
+                    <View style={{marginBottom: '10%'}} />
+                    {(showIcons) ? renderIcons() : <View />}
                 </View>
+                <View style={{marginBottom: '10%'}} />
                 <View style={{ display: formDisplay }}>
-                    <View style={styles.regInput}>
-                        <TextInput
-                            style={styles.inputText}
-                            placeholder='Target KMs Run'
-                            placeholderTextColor='white'
-                            autoCapitalize='none'
-                            autoCorrect={false}
-                            onChangeText={text => setTarget(text.trim())} />
+                    <View style={styles.rowView}>
+                        <Text style={styles.medText}>Target Distance:&nbsp;&nbsp;</Text>
+                        <View style={styles.smallInput}>
+                            <TextInput
+                                style={styles.inputText}
+                                placeholderTextColor='white'
+                                placeholder='x'
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                onChangeText={text => setTarget(text.trim())} />
+                        </View>
+                        <Text style={styles.medText}>&nbsp;km</Text>
                     </View>
-                    <DateTimePicker
-                        testID="dateTimePicker"
-                        value={deadline}
-                        mode={'date'}
-                        is24Hour={true}
-                        display="default"
-                        onChange={onDateChange}
-                    />
+                    <View style={{marginBottom: '5%'}} />
+                    <View style={styles.rowView}>
+                        <Text style={styles.medText}>Completion By:&nbsp;&nbsp;</Text>
+                        <DateTimePicker
+                            style={{alignSelf: 'center', width: 150}}
+                            testID="dateTimePicker"
+                            value={deadline}
+                            mode={'date'}
+                            is24Hour={true}
+                            display="default"
+                            onChange={onDateChange}
+                        />
+                   </View>
+                    <View style={{marginBottom: '10%'}} />
                     <TouchableOpacity
-                        style={styles.loginButton}
+                        style={styles.regButton}
                         onPress={() => {
                             const data = {
                                 goal: selectedGoal.value,
@@ -116,7 +147,7 @@ const CreateGoalPage = (props) => {
                                 .catch(err => console.log(err));
 
                         }} >
-                        <Text style={styles.buttonText}>Set Goal</Text>
+                        <Text style={styles.buttonText}>Get Matched!</Text>
                     </TouchableOpacity>
                 </View>
 

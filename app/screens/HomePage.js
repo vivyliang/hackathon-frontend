@@ -24,7 +24,7 @@ function MessengerScreen() {
 function GoalFeedScreen() {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Goal Feed!</Text>
+        <Text>Journey!</Text>
       </View>
     );
 }
@@ -44,9 +44,9 @@ function BottomTab({ state, descriptors, navigation }) {
                 if (route.name === 'CreateGoal') {
                     options.tabBarLabel = 
                     <View style={styles.singleTab}>
-                        <Icon size={40} name='ios-alarm-outline' type='ionicon' color='white' />
-                        <Text style={styles.buttonText}>CREATE</Text>
-                        <Text style={styles.buttonText}>GOAL</Text>
+                        <Icon size={40} name='ios-medal-outline' type='ionicon' color='white' />
+                        <Text style={styles.buttonText}>CURRENT</Text>
+                        <Text style={styles.buttonText}>GOALS</Text>
                     </View>
                 } else if (route.name === 'Messenger') {
                     options.tabBarLabel = 
@@ -55,12 +55,11 @@ function BottomTab({ state, descriptors, navigation }) {
                         <Text style={styles.buttonText}>MESSAGE</Text>
                         <Text style={styles.buttonText}>BUDDIES</Text>
                     </View>
-                } else if (route.name === 'GoalFeed') {
+                } else if (route.name === 'Journey') {
                     options.tabBarLabel = 
                     <View style={styles.singleTab}>
-                        <Icon size={40} name='ios-newspaper-outline' type='ionicon' color='white' />
-                        <Text style={styles.buttonText}>GOAL</Text>
-                        <Text style={styles.buttonText}>FEED</Text>
+                        <Icon size={40} name='ios-golf-outline' type='ionicon' color='white' />
+                        <Text style={styles.buttonText}>JOURNEY</Text>
                     </View>
                 } else if (route.name === 'Avatar') {
                     options.tabBarLabel = 
@@ -99,10 +98,10 @@ function BottomTab({ state, descriptors, navigation }) {
 
                 return (
                     <TouchableOpacity
+                        key={options.tabBarTestID}
                         accessibilityRole="button"
                         accessibilityState={isFocused ? { selected: true } : {}}
                         accessibilityLabel={options.tabBarAccessibilityLabel}
-                        testID={options.tabBarTestID}
                         onPress={onPress}
                         onLongPress={onLongPress}
                         style={styles.tabView}
@@ -124,7 +123,7 @@ const HomePage = (props) => {
             <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
                 <Tab.Screen name='CreateGoal' component={CreateGoalPage} />
                 <Tab.Screen name='Messenger' component={MessengerScreen} />
-                <Tab.Screen name='GoalFeed' component={GoalFeedScreen} />
+                <Tab.Screen name='Journey' component={GoalFeedScreen} />
                 <Tab.Screen name='Avatar' component={AvatarScreen} />
             </Tab.Navigator>
         </NavigationContainer>
