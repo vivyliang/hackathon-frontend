@@ -63,7 +63,6 @@ export const styles = StyleSheet.create({
         padding: 15,
         marginTop: "2%",
         alignSelf: "center",
-        zIndex: -1
     },
     regButton: {
         width: Math.round(width) * 0.45,
@@ -96,6 +95,12 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: '2%',
         zIndex: 2,
+    },
+    goalView: {
+        width: Math.round(width) * 0.4,
+        justifyContent: "center",
+        alignSelf: 'center',
+        marginTop: '2%',
     },
     genderView: {
         width: Math.round(width) * 0.8,

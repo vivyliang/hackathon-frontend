@@ -13,6 +13,8 @@ import { navigationRef } from './app/routes/routes';
 //Screen components
 import LoginPage from './app/screens/LoginPage';
 import RegisterPage from './app/screens/RegisterPage';
+import HomePage from './app/screens/HomePage';
+import CreateGoal from "./app/screens/CreateGoal";
 
 export default class App extends Component {
   render() {
@@ -22,6 +24,8 @@ export default class App extends Component {
           <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false}}>
             <Stack.Screen name="Login" component={LoginPage} />
             <Stack.Screen name="Register" component={RegisterPage} />
+            <Stack.Screen name="Home" component={HomePage} />
+            <Stack.Screen name="CreateGoal" component={CreateGoal} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

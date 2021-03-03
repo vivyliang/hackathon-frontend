@@ -9,10 +9,12 @@ import { TextInput,  } from 'react-native-gesture-handler';
 import { styles } from '../constants/styles';
 
 
-const LoginPage = (prosp) => {
+const LoginPage = (props) => {
     //state properties to hold username/password from UI
     const [username, setUsername] = useState(' ');
     const [password, setPassword] = useState(' ');
+
+    console.log(props);
 
     return (
         <View style={styles.container}>
@@ -42,7 +44,7 @@ const LoginPage = (prosp) => {
                     onPress={() => {
                         const user = {username: username.text, password: password.text};
                         console.log('loggin in');
-                        prosp.login(user);
+                        props.login(user);
                     }} >
                         <Text style={styles.buttonText}>LOGIN</Text>
                 </TouchableOpacity>
