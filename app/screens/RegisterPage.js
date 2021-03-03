@@ -167,9 +167,7 @@ const RegisterPage = (props) => {
                                     dateOfBirth: dobYear + '/' + dobMonth + '/' + dobDay,
                                     gender: gender
                                 };
-                                console.log(user)
-                                console.log('creating user');
-                                props.register(user);
+                                RootNavigation.navigate('CreateCharacter', user);
                             }
 
                         }} >

@@ -4,6 +4,7 @@ import * as RootNavigation from '../routes/routes';
 import axios from "axios";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import qs from "qs";
+import { addGoal } from '../actions/auth-action';
 
 //view stuff
 import { View, Text, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
@@ -13,7 +14,8 @@ import { styles } from '../constants/styles';
 import { Icon } from 'react-native-elements';
 
 const CreateGoalPage = (props) => {
-    const user = props.auth.user;
+    let user = props.auth.user;
+    console.log(props.addGoal.toString());
     const [goalLabels, setGoalLabels] = useState([]);
     const [selectedGoal, setSelectedGoal] = useState({});
     const [formDisplay, setFormDisplay] = useState("none");
@@ -135,14 +137,13 @@ const CreateGoalPage = (props) => {
                                 targetGoal: target,
                                 deadline
                             };
-                            console.log(data);
                             axios.post("https://arcane-shore-64990.herokuapp.com/add-user-to-goal", qs.stringify(data), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                                 .then((response) => {
-                                    if (response.data.length) {
-                                        //no match
-                                    } else {
-                                        console.log(response.data)
-                                    }
+
+                                    axios.get(`http://localhost:8080/get-user/${user._id}`)
+                                        .then( response => props.addGoal(response.data))
+                                        .catch( err => console.log(err))
+       
                                 })
                                 .catch(err => console.log(err));
 
@@ -158,5 +159,6 @@ const CreateGoalPage = (props) => {
 }
 
 const mapStateToProps = state => ({ auth: state.auth });
+const mapDispatchToProps = dispatch => ({addGoal: (user) => dispatch(addGoal(user))});
 
-export default connect(mapStateToProps)(CreateGoalPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateGoalPage);

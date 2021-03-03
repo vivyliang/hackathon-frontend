@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { login } from '../actions/auth-action';
+import { register } from '../actions/register-action';
 import * as RootNavigation from '../routes/routes';
 
 //view stuff
@@ -18,22 +18,34 @@ import spriteF2 from '../assets/sprite-f2.gif';
 const CreateCharacterPage = (props) => {
     let [gender, setGender] = useState('female');
     let [hair, setHair] = useState('2');
+    let [imgsrc, setImgSrc] = useState("");
+    let [imgStr, setImgStr] = useState("");
+
+    console.log('hi');
+
+    let user = props.route.params;
 
     let renderImage = () => {
         let imgsrc = '';
         if (gender === 'female' && hair === '1') {
             imgsrc = spriteF1;
+            setImgStr('../assets/sprite-f1.gif')
         } else if (gender === 'female' && hair === '2') {
             imgsrc = spriteF2;
+            setImgStr('../assets/sprite-f1.gif')
         } else if (gender === 'male' && hair === '1') {
             imgsrc = spriteM1;
+            setImgStr('../assets/sprite-m1.gif')
         } else if (gender === 'male' && hair === '2') {
             imgsrc = spriteM2;
+            setImgStr('../assets/sprite-m2.gif')
         }
-        return (
-            <Image style={{alignSelf: 'center'}} source={imgsrc} />
-        )
+        setImgSrc(imgsrc);
     }
+
+    useEffect(() => {
+        renderImage();
+     }, [hair, gender]);
 
     return (
         <View style={styles.container}>
@@ -41,7 +53,7 @@ const CreateCharacterPage = (props) => {
                 style={styles.container}
                 source={require('../assets/characterpage.png')}>
                 <View style={{ marginBottom: '65%' }} />
-                {renderImage()}
+                <Image style={{alignSelf: 'center'}} source={imgsrc} />
                 <View style={{ marginBottom: '30%' }} />
                 <View style={styles.rowView}>
                     <TouchableOpacity
@@ -81,9 +93,10 @@ const CreateCharacterPage = (props) => {
                 <TouchableOpacity
                     style={styles.loginButton}
                     onPress={() => {
-                        RootNavigation.navigate('Home')
+                        user.avatar = imgStr;
+                        props.register(user);
                     }} >
-                    <Text style={styles.buttonText}>SAVE</Text>
+                    <Text style={styles.buttonText}>COMPLETE REGISTRATION</Text>
                 </TouchableOpacity>
             </ImageBackground>
         </View>
@@ -92,7 +105,6 @@ const CreateCharacterPage = (props) => {
 }
 
 
-const mapDispatchToProps = dispatch => ({login: (user) => dispatch(login(user))});
-const mapStateToProps = state => ({auth: state.auth});
+const mapDispatchToProps = dispatch => ({register: (user) => dispatch(register(user))});
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateCharacterPage);
+export default connect(undefined, mapDispatchToProps)(CreateCharacterPage);

@@ -16,6 +16,8 @@ import RegisterPage from './app/screens/RegisterPage';
 import CreateCharacterPage from './app/screens/CreateCharacterPage';
 import HomePage from './app/screens/HomePage';
 import CreateGoalPage from "./app/screens/CreateGoalPage";
+import GoalsPage from "./app/screens/GoalsPage";
+import ChatPage from "./app/screens/ChatPage";
 
 export default class App extends Component {
   render() {
@@ -28,6 +30,8 @@ export default class App extends Component {
             <Stack.Screen name="CreateCharacter" component={CreateCharacterPage} />
             <Stack.Screen name="Home" component={HomePage} />
             <Stack.Screen name="CreateGoal" component={CreateGoalPage} />
+            <Stack.Screen name="Goals" component={GoalsPage} />
+            <Stack.Screen name="Chat" component={ChatPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
