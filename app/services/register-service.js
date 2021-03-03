@@ -7,6 +7,7 @@ export const userService = {
 };
 
 function register(userObj) {
+    console.log('hi2')
     return new Promise( (resolve, reject) => {
         axios.post("https://arcane-shore-64990.herokuapp.com/register", qs.stringify(userObj), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
         .then( (user) => {

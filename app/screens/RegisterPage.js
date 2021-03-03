@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { register } from '../services/register-service';
+import { register } from '../actions/register-action';
 import * as RootNavigation from '../routes/routes';
 
 //view stuff
@@ -9,7 +9,7 @@ import { TextInput,  } from 'react-native-gesture-handler';
 import { styles } from '../constants/styles';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const RegisterPage = () => {
+const RegisterPage = (props) => {
     //user properties
     const [username, setUsername] = useState(' ');
     const [password, setPassword] = useState(' ');
@@ -164,12 +164,12 @@ const RegisterPage = () => {
                                     username: username.text,
                                     password: password.text,
                                     email: email.text,
-                                    dateOfBirth: dobYear.text + '/' + dobMonth.text + '/' + dobDay,
-                                    gender: gender.text
+                                    dateOfBirth: dobYear + '/' + dobMonth + '/' + dobDay,
+                                    gender: gender
                                 };
-
+                                console.log(user)
                                 console.log('creating user');
-                                prosp.register(user);
+                                props.register(user);
                             }
 
                         }} >
@@ -183,7 +183,9 @@ const RegisterPage = () => {
 }
 
 
-const mapDispatchToProps = dispatch => ({login: (user) => dispatch(login(user))});
-const mapStateToProps = state => ({auth: state.auth});
+const mapDispatchToProps = dispatch => ({
+    register: (user) => dispatch(register(user))
+});
+const mapStateToProps = state => ({reg: state.reg});
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);

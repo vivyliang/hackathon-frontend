@@ -3,12 +3,13 @@ import { userService } from '../services/register-service';
 import * as RootNavigation from '../routes/routes';
 
 export const register = (userObj) => dispatch => {
+    console.log('hi')
     userService.register(userObj)
     .then((userData) => {
         if (!userData.error) {
             try {
                 dispatch(registerSuccess(userData));
-                RootNavigation.navigate('Character');
+                RootNavigation.navigate('CreateCharacter');
             } catch(err) { console.log(err); }
         } else {
             dispatch(registerFailure(userData.message));

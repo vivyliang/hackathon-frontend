@@ -63,7 +63,6 @@ export const styles = StyleSheet.create({
         padding: 15,
         marginTop: "2%",
         alignSelf: "center",
-        zIndex: -1
     },
     regButton: {
         width: Math.round(width) * 0.45,
@@ -76,6 +75,39 @@ export const styles = StyleSheet.create({
         marginTop: "2%",
         alignSelf: "center",
         zIndex: -1
+    },
+    maleButton: {
+        width: "25%",
+        backgroundColor: "#2225f0",
+        borderRadius: 3,
+        height: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 15,
+        marginTop: "2%",
+        alignSelf: "center",
+    },
+    femaleButton: {
+        width: "25%",
+        backgroundColor: "#eb81dd",
+        borderRadius: 3,
+        height: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 15,
+        marginTop: "2%",
+        alignSelf: "center",
+    },
+    hairButton: {
+        width: "35%",
+        backgroundColor: "#000",
+        borderRadius: 3,
+        height: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 15,
+        marginTop: "2%",
+        alignSelf: "center",
     },
     buttonText: {
         height: 15,
