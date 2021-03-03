@@ -14,8 +14,6 @@ const LoginPage = (props) => {
     const [username, setUsername] = useState(' ');
     const [password, setPassword] = useState(' ');
 
-    console.log(props);
-
     return (
         <View style={styles.container}>
             <ImageBackground

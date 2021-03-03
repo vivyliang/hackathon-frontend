@@ -9,6 +9,11 @@ export default(state = initState, action) => {
                 ...state,
                 user: {...action.userData.data},
             };
+        case userConst.ADD_GOAL:
+            return {
+                ...state,
+                user: {...action.userData}
+            }
         case userConst.LOGIN_FAILURE:
             return initState;
         case userConst.LOGOUT:

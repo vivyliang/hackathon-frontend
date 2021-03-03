@@ -9,9 +9,8 @@ export const userService = {
 
 function login(userObj) {
     return new Promise( (resolve, reject) => {
-        axios.post("https://arcane-shore-64990.herokuapp.com/login", qs.stringify(userObj), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+        axios.post("http://localhost:8080/login", qs.stringify(userObj), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
         .then( (user) => {
-            console.log(user.data);
             resolve(user);
         })
         .catch( (err) => {
