@@ -14,10 +14,26 @@ import { View, Text, ImageBackground, TouchableOpacity, Dimensions } from 'react
 import { Icon } from 'react-native-elements';
 import { styles } from '../constants/styles';
 
-function CreateGoalScreen() {
+function MessengerScreen() {
     return (
-        CreateGoalPage
-    )
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Messenger!</Text>
+      </View>
+    );
+}
+function GoalFeedScreen() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Goal Feed!</Text>
+      </View>
+    );
+}
+function AvatarScreen() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Avatar!</Text>
+      </View>
+    );
 }
 
 function BottomTab({ state, descriptors, navigation }) {
@@ -32,7 +48,27 @@ function BottomTab({ state, descriptors, navigation }) {
                         <Text style={styles.buttonText}>CREATE</Text>
                         <Text style={styles.buttonText}>GOAL</Text>
                     </View>
-                    
+                } else if (route.name === 'Messenger') {
+                    options.tabBarLabel = 
+                    <View style={styles.singleTab}>
+                        <Icon size={40} name='ios-chatbubbles-outline' type='ionicon' color='white' />
+                        <Text style={styles.buttonText}>MESSAGE</Text>
+                        <Text style={styles.buttonText}>BUDDIES</Text>
+                    </View>
+                } else if (route.name === 'GoalFeed') {
+                    options.tabBarLabel = 
+                    <View style={styles.singleTab}>
+                        <Icon size={40} name='ios-newspaper-outline' type='ionicon' color='white' />
+                        <Text style={styles.buttonText}>GOAL</Text>
+                        <Text style={styles.buttonText}>FEED</Text>
+                    </View>
+                } else if (route.name === 'Avatar') {
+                    options.tabBarLabel = 
+                    <View style={styles.singleTab}>
+                        <Icon size={40} name='ios-happy-outline' type='ionicon' color='white' />
+                        <Text style={styles.buttonText}>VIEW</Text>
+                        <Text style={styles.buttonText}>AVATAR</Text>
+                    </View>
                 }
                 const label =
                     options.tabBarLabel !== undefined
@@ -87,6 +123,9 @@ const HomePage = (props) => {
         <NavigationContainer independent={true}>
             <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
                 <Tab.Screen name='CreateGoal' component={CreateGoalPage} />
+                <Tab.Screen name='Messenger' component={MessengerScreen} />
+                <Tab.Screen name='GoalFeed' component={GoalFeedScreen} />
+                <Tab.Screen name='Avatar' component={AvatarScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     )

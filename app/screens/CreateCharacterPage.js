@@ -81,7 +81,7 @@ const CreateCharacterPage = (props) => {
                 <TouchableOpacity
                     style={styles.loginButton}
                     onPress={() => {
-                        RootNavigation.navigate('Register')
+                        RootNavigation.navigate('Home')
                     }} >
                     <Text style={styles.buttonText}>SAVE</Text>
                 </TouchableOpacity>

@@ -44,7 +44,7 @@ const CreateGoalPage = (props) => {
                             dropDownStyle={{ backgroundColor: '#4d70ff' }}
                             labelStyle={{ color: 'white' }}
                             onChangeItem={text => {
-                                axios.get(`http://localhost:8080/goals-from-type/${text.value}`)
+                                axios.get(`https://arcane-shore-64990.herokuapp.com/goals-from-type/${text.value}`)
                                     .then((response) => {
 
                                         let goalLabels = [];

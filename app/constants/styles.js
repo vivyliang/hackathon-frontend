@@ -143,11 +143,16 @@ export const styles = StyleSheet.create({
         zIndex: 1,
     },
     tabView: {
+        flex: 1,
         backgroundColor: '#1335bf',
         height: Math.round(height) * 0.1,
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     singleTab: {
         justifyContent: 'center',
         alignItems: 'center',
+        padding: '5%',
     }
 })
