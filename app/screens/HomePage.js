@@ -15,6 +15,7 @@ import { Icon } from 'react-native-elements';
 import { styles } from '../constants/styles';
 
 import GoalsPage from "./GoalsPage";
+import AvatarPage from "./AvatarPage";
 
 function GoalFeedScreen() {
     return (
@@ -120,7 +121,7 @@ const HomePage = (props) => {
                 <Tab.Screen name='CreateGoal' component={CreateGoalPage} />
                 <Tab.Screen name='Goals' component={GoalsPage} />
                 <Tab.Screen name='GoalFeed' component={GoalFeedScreen} />
-                <Tab.Screen name='Avatar' component={AvatarScreen} />
+                <Tab.Screen name='Avatar' component={AvatarPage} />
             </Tab.Navigator>
         </NavigationContainer>
     )

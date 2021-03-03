@@ -9,7 +9,7 @@ export const register = (userObj) => dispatch => {
         if (!userData.error) {
             try {
                 dispatch(registerSuccess(userData));
-                RootNavigation.navigate('CreateCharacter');
+                RootNavigation.navigate("Home");
             } catch(err) { console.log(err); }
         } else {
             dispatch(registerFailure(userData.message));
