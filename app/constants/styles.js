@@ -129,6 +129,12 @@ export const styles = StyleSheet.create({
         marginTop: '2%',
         zIndex: 2,
     },
+    goalView: {
+        width: Math.round(width) * 0.4,
+        justifyContent: "center",
+        alignSelf: 'center',
+        marginTop: '2%',
+    },
     genderView: {
         width: Math.round(width) * 0.8,
         justifyContent: "center",
@@ -136,4 +142,12 @@ export const styles = StyleSheet.create({
         marginTop: '2%',
         zIndex: 1,
     },
+    tabView: {
+        backgroundColor: '#1335bf',
+        height: Math.round(height) * 0.1,
+    },
+    singleTab: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 })

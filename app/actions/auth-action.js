@@ -8,7 +8,7 @@ export const login = (userObj) => dispatch => {
         if (!userData.error) {
             try {
                 dispatch(loginSuccess(userData));
-                RootNavigation.navigate('Main');
+                RootNavigation.navigate('Home');
             } catch(err) { console.log(err); }
         } else {
             dispatch(loginFailure(userData.message));

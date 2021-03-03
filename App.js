@@ -14,6 +14,8 @@ import { navigationRef } from './app/routes/routes';
 import LoginPage from './app/screens/LoginPage';
 import RegisterPage from './app/screens/RegisterPage';
 import CreateCharacterPage from './app/screens/CreateCharacterPage';
+import HomePage from './app/screens/HomePage';
+import CreateGoalPage from "./app/screens/CreateGoalPage";
 
 export default class App extends Component {
   render() {
@@ -24,6 +26,8 @@ export default class App extends Component {
             <Stack.Screen name="Login" component={LoginPage} />
             <Stack.Screen name="Register" component={RegisterPage} />
             <Stack.Screen name="CreateCharacter" component={CreateCharacterPage} />
+            <Stack.Screen name="Home" component={HomePage} />
+            <Stack.Screen name="CreateGoal" component={CreateGoalPage} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
