@@ -29,7 +29,7 @@ class ChatPage extends React.Component {
                         name='keyboard-backspace'
                         color='blue'
                         containerStyle={styles.icon}
-                        onPress={() => RootNavigation.navigate('Goals')} />
+                        onPress={() => RootNavigation.navigate('Home')} />
                         </View>
                 <View style={styles.container}>
 

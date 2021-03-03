@@ -28,7 +28,7 @@ function BottomTab({ state, descriptors, navigation }) {
         <View style={{ flexDirection: 'row' }}>
             {state.routes.map((route, index) => {
                 const { options } = descriptors[route.key];
-                if (route.name === 'GoalsPage') {
+                if (route.name === 'Goals') {
                     options.tabBarLabel = 
                     <View style={styles.singleTab}>
                         <Icon size={40} name='ios-medal-outline' type='ionicon' color='white' />
@@ -108,7 +108,7 @@ const HomePage = (props) => {
     return (
         <NavigationContainer independent={true}>
             <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
-                <Tab.Screen name='GoalsPage' component={GoalsPage} />
+                <Tab.Screen name='Goals' component={GoalsPage} />
                 <Tab.Screen name='Journey' component={GoalFeedScreen} />
                 <Tab.Screen name='Avatar' component={AvatarPage} />
             </Tab.Navigator>
