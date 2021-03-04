@@ -9,6 +9,12 @@ import { View, Text, ImageBackground, TouchableOpacity, Dimensions, KeyboardAvoi
 import { styles } from '../constants/styles';
 import { Icon } from 'react-native-elements';
 
+//import characters
+import spriteM1 from '../assets/sprite-m1.gif';
+import spriteM2 from '../assets/sprite-m2.gif';
+import spriteF1 from '../assets/sprite-f1.gif';
+import spriteF2 from '../assets/sprite-f2.gif';
+
 class ChatPage extends React.Component {
     state = {
         msgs: [],
@@ -18,7 +24,8 @@ class ChatPage extends React.Component {
         goal: this.props.route.params.goal,
         receiveMsg: (receivedMsgs = []) => {
             this.setState({ conversation: { ...this.state.conversation, messages: receivedMsgs } });
-        }
+        },
+        avatar: '',
     }
     componentDidMount() {
         const socket = io("https://arcane-shore-64990.herokuapp.com");
@@ -32,6 +39,18 @@ class ChatPage extends React.Component {
                 }))
             })
         })
+
+        if (this.state.user.avatar) {
+            if (this.state.user.avatar.indexOf("m1") > -1) {
+                this.state.avatar = spriteM1;
+            } else if (this.state.user.avatar.indexOf("m2") > -1) {
+                this.state.avatar = spriteM2;
+            } else if (this.state.user.avatar.indexOf("f1") > -1) {
+                this.state.avatar = spriteF1;
+            } else {
+                this.state.avatar = spriteF2;
+            }
+        }
     }
     onSend = ((newMsgs = []) => {
 
@@ -53,6 +72,7 @@ class ChatPage extends React.Component {
         })
     })
     render() {
+        console.log(this.state.avatar)
         return (
             <KeyboardAvoidingView
                 style={styles.container}
@@ -60,7 +80,7 @@ class ChatPage extends React.Component {
                 <View>
                     <ImageBackground  style={{ height: Dimensions.get('window').height * 0.12, width: Dimensions.get('window').width }} source={require('../assets/chatheader.png')}>
                         <Icon raised name='keyboard-backspace' iconStyle={{ color: 'black' }} containerStyle={{position: 'relative', marginTop: '10%'}} onPress={() => RootNavigation.navigate('Home')} />
-                        <Text style={styles.headerText}> {this.state.user.username}</Text>
+                        <Text style={styles.headerText}> {this.state.goal.buddy.username}</Text>
                     </ImageBackground>
                     <View style={{ position: 'relative', alignSelf: 'flex-end', }}>
                     <Icon size={30} reverse name='ios-image-outline' type='ionicon' color='#ff5454' onPress={() => { }} />
@@ -75,9 +95,10 @@ class ChatPage extends React.Component {
                         messages={this.state.conversation.messages}
                         onSend={msgs => this.onSend(msgs)}
                         user={{
-                            _id: this.props.user._id
-
+                            _id: this.props.user._id,
+                            avatar: this.state.avatar
                         }}
+                        showUserAvatar={true}
                     />
                 </View>
             </KeyboardAvoidingView>

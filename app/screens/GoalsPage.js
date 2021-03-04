@@ -51,7 +51,7 @@ const GoalsPage = (props) => {
                         <Icon reverse size={15} name={iconname} type='font-awesome-5' reverseColor='#4d70ff' />
                     </View>
                     <View style={{ backgroundColor: 'darkgrey', width: '97%', alignSelf: 'flex-end', margin: 5, padding: 5 }}>
-                        <Text style={{ fontSize: 15 }}>{Object.keys(item.buddy).length > 0 ? 'Matched with: ' + item.buddy.username + ' (click to chat!)' : "Match Pending..."}</Text>
+                        <Text style={{ fontSize: 15 }}>{(item.buddy && Object.keys(item.buddy).length > 0) ? 'Matched with: ' + item.buddy.username + ' (click to chat!)' : "Match Pending..."}</Text>
                     </View>
 
 
