@@ -61,7 +61,11 @@ const GoalsPage = (props) => {
         console.log(item.currentProgress)
          return (
              <View style={styles.listView}>
-                 <TouchableOpacity onPress={() => { RootNavigation.navigate('Chat', { goal: item }) }}>
+                 <TouchableOpacity onPress={() => { 
+                        axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation}`)
+                        .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
+                        .catch( err => console.log(err));
+                     }}>
                      <View style={{position: 'relative', alignSelf: 'flex-end', }} >
                     <Icon reverse size={15} name={iconname} type='font-awesome-5' reverseColor='#4d70ff' />
                     </View>
