@@ -36,7 +36,7 @@ const GoalsPage = (props) => {
         } else if (item.goalType.name === 'Sports') {
             iconname = 'basketball-ball';
         }
-        console.log(item)
+
         return (
             <View style={styles.listView}>
                 <TouchableOpacity onPress={() => { 

@@ -4,6 +4,7 @@ import * as RootNavigation from '../routes/routes';
 import { io } from 'socket.io-client';
 import { GiftedChat } from 'react-native-gifted-chat';
 import dayjs from "dayjs";
+import * as ImagePicker from "expo-image-picker";
 
 import { View, Text, ImageBackground, TouchableOpacity, Dimensions, KeyboardAvoidingView } from 'react-native';
 import { styles } from '../constants/styles';
@@ -71,6 +72,22 @@ class ChatPage extends React.Component {
             this.state.socket.emit("send message", { msgs, conversationID: this.state.conversation._id });
         })
     })
+
+    pickImage = async () => {
+
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 0,
+        });
+    
+        //console.log(result);
+    
+        if (!result.cancelled) {
+            this.setState({image: result.uri});
+        }
+    };
     render() {
         console.log(this.state.avatar)
         return (
@@ -83,7 +100,9 @@ class ChatPage extends React.Component {
                         <Text style={styles.headerText}> {this.state.goal.buddy.username}</Text>
                     </ImageBackground>
                     <View style={{ position: 'relative', alignSelf: 'flex-end', }}>
-                    <Icon size={30} reverse name='ios-image-outline' type='ionicon' color='#ff5454' onPress={() => { }} />
+                    <Icon size={30} reverse name='ios-image-outline' type='ionicon' color='#ff5454' onPress={() => { 
+                        this.pickImage();
+                    }} />
                     <View style={styles.centered}>
                     <Text style={styles.smallText}>POST</Text>
                     <Text style={styles.smallText}>PROGRESS</Text>
