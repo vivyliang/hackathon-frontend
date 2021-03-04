@@ -193,10 +193,18 @@ export const styles = StyleSheet.create({
         height: height * 0.15,
     },
     scrollView: {
-        height: height * 0.5,
+        height: height * 0.8,
+        //marginTop: height * 0.25,
     },
     scrollView2: {
         height: height * 0.7,
         marginTop: height * 0.1,
-    }
+    },
+    headerText: {
+        position: 'relative',
+        fontSize: 30,
+        color: 'white',
+        alignSelf: 'center',
+        marginTop: '-12%',
+    },
 })

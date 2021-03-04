@@ -13,29 +13,7 @@ const GoalsPage = (props) => {
     //bolded text
     const B = (props) => <Text style={{ fontWeight: 'bold' }}>{props.children}</Text>
     const user = props.auth.user;
-    let goalBlocks = [];
-   // console.log(user);
-
-    if (user.goals.length > 0) {
-        for (let i = 0; i < user.goals.length; i++) {
-            const goalBlock = (
-                <View key={i}>
-                    <TouchableOpacity onPress={() => {
-                        if (user.goals[i].conversation) {
-                            axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${user.goals[i].conversation}`)
-                                .then( conversation => RootNavigation.navigate("Chat", {goal: user.goals[i], conversation: conversation.data}))
-                                .catch( err => console.log(err));
-                        }
-                        
-                    }}>
-                        <Text>{user.goals[i].goalType.name}</Text>
-                        <Text>{user.goals[i].buddy ? user.goals[i].buddy.username : "Not matched"}</Text>
-                    </TouchableOpacity>
-                </View>
-            )
-            goalBlocks.push(goalBlock);
-        }
-    }
+    
     //render flatlist for goals
     const renderItem = ({ item }) => {
         //get percentage of goal progress for progress bar
@@ -58,48 +36,51 @@ const GoalsPage = (props) => {
         } else if (item.goalType.name === 'Sports') {
             iconname = 'basketball-ball';
         }
-        console.log(item.currentProgress)
-         return (
-             <View style={styles.listView}>
-                 <TouchableOpacity onPress={() => { 
+
+        return (
+            <View style={styles.listView}>
+                <TouchableOpacity onPress={() => { 
+                    if (item.conversation) {
                         axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation}`)
-                        .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
-                        .catch( err => console.log(err));
-                     }}>
-                     <View style={{position: 'relative', alignSelf: 'flex-end', }} >
-                    <Icon reverse size={15} name={iconname} type='font-awesome-5' reverseColor='#4d70ff' />
+                            .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
+                            .catch( err => console.log(err));
+                    }
+                    // RootNavigation.navigate('Chat', { goal: item }) 
+                    }}>
+                    <View style={{ position: 'relative', alignSelf: 'flex-end', }} >
+                        <Icon reverse size={15} name={iconname} type='font-awesome-5' reverseColor='#4d70ff' />
                     </View>
                     <View style={{ backgroundColor: 'darkgrey', width: '97%', alignSelf: 'flex-end', margin: 5, padding: 5 }}>
-                        <Text style={{fontSize: 15}}>{Object.keys(item.buddy).length > 0 ? 'Matched with: ' + item.buddy.username + ' (click to chat!)' : "Match Pending..."}</Text>
+                        <Text style={{ fontSize: 15 }}>{Object.keys(item.buddy).length > 0 ? 'Matched with: ' + item.buddy.username + ' (click to chat!)' : "Match Pending..."}</Text>
                     </View>
-                    
-                    
-                     <View style={styles.rowView}>
-                         <View style={{ backgroundColor: 'lightblue', width: '50%', borderRadius: 25, alignSelf: 'flex-end', margin: 5 }}>
-                             <Text style={{ padding: 5, fontSize: 12, alignSelf: 'center' }}>Goal Category: <B>{item.goalType.category}</B></Text>
-                         </View>
-                         <Text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
-                        <View style={{borderRadius: 33, backgroundColor: 'lightpink', margin: 5, padding: 5}}>
-                            <Text style={{ fontSize: 10}}>{daysLeft} days left</Text>
+
+
+                    <View style={styles.rowView}>
+                        <View style={{ backgroundColor: 'lightblue', width: '50%', borderRadius: 25, alignSelf: 'flex-end', margin: 5 }}>
+                            <Text style={{ padding: 5, fontSize: 12, alignSelf: 'center' }}>Goal Category: <B>{item.goalType.category}</B></Text>
                         </View>
-                     </View>
-                     <ProgressBar progress={prog} unfilledColor='lightgrey' width={350} color={'#59de78'} borderColor={'black'} />
-                 </TouchableOpacity>
-             </View>
-         )
+                        <Text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
+                        <View style={{ borderRadius: 33, backgroundColor: 'lightpink', margin: 5, padding: 5 }}>
+                            <Text style={{ fontSize: 10 }}>{daysLeft} days left</Text>
+                        </View>
+                    </View>
+                    <ProgressBar progress={prog} unfilledColor='lightgrey' width={350} color={'#59de78'} borderColor={'black'} />
+                </TouchableOpacity>
+            </View>
+        )
     }
 
     return (
         <View style={styles.container}>
-        <ImageBackground
-            style={styles.container}
-            source={require('../assets/currentgoalspage.png')}>
-            {/* <View styles={styles.rowView}>
+            <ImageBackground
+                style={styles.container}
+                source={require('../assets/currentgoalspage.png')}>
+                {/* <View styles={styles.rowView}>
                 {goalBlocks}
             </View> */}
-            <View style={{justifyContent: 'flex-end'}}>
-                <Icon reverse name='ios-add-outline' type='ionicon' color='#ff5454' onPress={() => {RootNavigation.navigate('CreateGoal')}}/>
-            </View>
+                <View style={{ justifyContent: 'flex-start', marginTop: '65%' }}>
+                    <Icon reverse name='ios-add-outline' type='ionicon' color='#ff5454' onPress={() => { RootNavigation.navigate('CreateGoal') }} />
+                </View>
                 <SafeAreaView style={styles.scrollView}>
                     <FlatList
                         data={user.goals}

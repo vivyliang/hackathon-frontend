@@ -34,7 +34,7 @@ const CreateGoalPage = (props) => {
         return (
             <View style={styles.centered}>
                 <View style={styles.rowView}>
-                    <Icon reverse size={30} name='running' type='font-awesome-5' reverseColor={ color ? '#5ee67e' : '#4d70ff'} onPress={() => {console.log(goalLabels); setSelectedGoal(goalLabels.Running); setFormDisplay("block"); setColor(true)}} />
+                    <Icon reverse size={30} name='running' type='font-awesome-5' reverseColor={ color ? '#5ee67e' : '#4d70ff'} onPress={() => {setSelectedGoal(goalLabels.Running); setFormDisplay("block"); setColor(true)}} />
                     <Icon reverse size={30} name='dumbbell' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal(goalLabels.Weightlifting); setFormDisplay("block")}} />
                     <Icon reverse size={30} name='swimmer' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal(goalLabels.Swimming); setFormDisplay("block")}} />
                 </View>
@@ -147,7 +147,7 @@ const CreateGoalPage = (props) => {
 
                             axios.post("https://arcane-shore-64990.herokuapp.com/add-user-to-goal", qs.stringify(data), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                                 .then((response) => {
-
+                                    console.log('hi')
                                     axios.get(`https://arcane-shore-64990.herokuapp.com/get-user/${user._id}`)
                                         .then( response => props.addGoal(response.data))
                                         .catch( err => console.log(err))

@@ -115,7 +115,6 @@ const HomePage = (props) => {
                 <Tab.Screen name='Goals' component={GoalsPage} />
                 <Tab.Screen name='Journey' component={CreateGoalPage} />
                 <Tab.Screen name='Avatar' component={AvatarPage} />
-                <Tab.Screen name='Chat' component={ChatPage} />
             </Tab.Navigator>
         // </NavigationContainer>
     )
