@@ -17,6 +17,8 @@ import { styles } from '../constants/styles';
 
 import GoalsPage from "./GoalsPage";
 import AvatarPage from "./AvatarPage";
+import CreateGoalPage from "./CreateGoalPage";
+import ChatPage from "./ChatPage";
 
 function GoalFeedScreen() {
     return (
@@ -111,7 +113,7 @@ const HomePage = (props) => {
         // <NavigationContainer independent={true} >
             <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
                 <Tab.Screen name='Goals' component={GoalsPage} />
-                <Tab.Screen name='Journey' component={GoalFeedScreen} />
+                <Tab.Screen name='Journey' component={CreateGoalPage} />
                 <Tab.Screen name='Avatar' component={AvatarPage} />
             </Tab.Navigator>
         // </NavigationContainer>

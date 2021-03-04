@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as RootNavigation from '../routes/routes';
 import dayjs from 'dayjs';
+import axios from "axios";
 
 import { View, Text, ImageBackground, TouchableOpacity, FlatList, SafeAreaView } from 'react-native';
 import { styles } from '../constants/styles';
@@ -12,24 +13,7 @@ const GoalsPage = (props) => {
     //bolded text
     const B = (props) => <Text style={{ fontWeight: 'bold' }}>{props.children}</Text>
     const user = props.auth.user;
-    let goalBlocks = [];
-    // console.log(user);
-
-    if (user.goals.length > 0) {
-        for (let i = 0; i < user.goals.length; i++) {
-            const goalBlock = (
-                <View key={i}>
-                    <TouchableOpacity onPress={() => {
-                        RootNavigation.navigate("Chat", { goal: user.goals[i] });
-                    }}>
-                        <Text>{user.goals[i].goalType.name}</Text>
-                        <Text>{user.goals[i].buddy ? user.goals[i].buddy.username : "Not matched"}</Text>
-                    </TouchableOpacity>
-                </View>
-            )
-            goalBlocks.push(goalBlock);
-        }
-    }
+    
     //render flatlist for goals
     const renderItem = ({ item }) => {
         //get percentage of goal progress for progress bar
@@ -52,9 +36,17 @@ const GoalsPage = (props) => {
         } else if (item.goalType.name === 'Sports') {
             iconname = 'basketball-ball';
         }
+        console.log(item)
         return (
             <View style={styles.listView}>
-                <TouchableOpacity onPress={() => { RootNavigation.navigate('Chat', { goal: item }) }}>
+                <TouchableOpacity onPress={() => { 
+                    if (item.conversation) {
+                        axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation}`)
+                            .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
+                            .catch( err => console.log(err));
+                    }
+                    // RootNavigation.navigate('Chat', { goal: item }) 
+                    }}>
                     <View style={{ position: 'relative', alignSelf: 'flex-end', }} >
                         <Icon reverse size={15} name={iconname} type='font-awesome-5' reverseColor='#4d70ff' />
                     </View>
