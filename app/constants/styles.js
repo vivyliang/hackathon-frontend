@@ -193,7 +193,8 @@ export const styles = StyleSheet.create({
         height: height * 0.15,
     },
     scrollView: {
-        height: height * 0.5,
+        height: height * 0.8,
+        //marginTop: height * 0.25,
     },
     scrollView2: {
         height: height * 0.7,
