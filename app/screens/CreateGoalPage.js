@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as RootNavigation from '../routes/routes';
 import axios from "axios";
@@ -15,7 +15,7 @@ import { Icon } from 'react-native-elements';
 
 const CreateGoalPage = (props) => {
     let user = props.auth.user;
-    console.log(props.addGoal.toString());
+
     const [goalLabels, setGoalLabels] = useState([]);
     const [selectedGoal, setSelectedGoal] = useState({});
     const [formDisplay, setFormDisplay] = useState("none");
@@ -34,9 +34,9 @@ const CreateGoalPage = (props) => {
         return (
             <View style={styles.centered}>
                 <View style={styles.rowView}>
-                    <Icon reverse size={30} name='running' type='font-awesome-5' reverseColor={ color ? '#5ee67e' : '#4d70ff'} onPress={() => {setSelectedGoal('Running'); setFormDisplay("block"); setColor(true)}} />
-                    <Icon reverse size={30} name='dumbbell' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
-                    <Icon reverse size={30} name='swimmer' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
+                    <Icon reverse size={30} name='running' type='font-awesome-5' reverseColor={ color ? '#5ee67e' : '#4d70ff'} onPress={() => {console.log(goalLabels); setSelectedGoal(goalLabels.Running); setFormDisplay("block"); setColor(true)}} />
+                    <Icon reverse size={30} name='dumbbell' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal(goalLabels.Weightlifting); setFormDisplay("block")}} />
+                    <Icon reverse size={30} name='swimmer' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal(goalLabels.Swimming); setFormDisplay("block")}} />
                 </View>
                 <View style={styles.rowView}>
                     <Text style={styles.smallText}>RUNNING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
@@ -44,9 +44,9 @@ const CreateGoalPage = (props) => {
                     <Text style={styles.smallText}>SWIMMING</Text>
                 </View>
                 <View style={styles.rowView}>
-                    <Icon reverse size={30} name='hiking' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
-                    <Icon reverse size={30} name='bicycle' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
-                    <Icon reverse size={30} name='basketball-ball' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal('Running'); setFormDisplay("block")}} />
+                    <Icon reverse size={30} name='hiking' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal(goalLabels.Hiking); setFormDisplay("block")}} />
+                    <Icon reverse size={30} name='bicycle' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal(goalLabels.Cycling); setFormDisplay("block")}} />
+                    <Icon reverse size={30} name='basketball-ball' type='font-awesome-5' reverseColor='#4d70ff' onPress={() => {setSelectedGoal(goalLabels.Sports); setFormDisplay("block")}} />
                 </View>
                 <View style={styles.rowView}>
                     <Text style={styles.smallText}>HIKING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
@@ -56,6 +56,13 @@ const CreateGoalPage = (props) => {
             </View>
         )
     }
+
+    useEffect(() => {
+
+        if (Object.keys(goalLabels).length > 0) {
+            setShowIcons(true);
+        }
+    }, [goalLabels])
 
     return (
         <View style={styles.container}>
@@ -82,15 +89,11 @@ const CreateGoalPage = (props) => {
                                 axios.get(`https://arcane-shore-64990.herokuapp.com/goals-from-type/${text.value}`)
                                     .then((response) => {
 
-                                        let goalLabels = [];
+                                        let goalObj = {};
                                         for (let i = 0; i < response.data.length; i++) {
-                                            goalLabels.push({
-                                                label: response.data[i].name,
-                                                value: response.data[i]._id
-                                            })
+                                            goalObj[response.data[i].name] = response.data[i]._id
                                         }
-                                        setGoalLabels(goalLabels);
-                                        setShowIcons(true);
+                                        setGoalLabels(goalObj);
 
                                     }).catch((err) => console.log(err));
                             }}
@@ -132,15 +135,16 @@ const CreateGoalPage = (props) => {
                         style={styles.regButton}
                         onPress={() => {
                             const data = {
-                                goal: selectedGoal.value,
+                                goal: selectedGoal,
                                 user: props.auth.user._id,
                                 targetGoal: target,
                                 deadline
                             };
+
                             axios.post("https://arcane-shore-64990.herokuapp.com/add-user-to-goal", qs.stringify(data), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                                 .then((response) => {
 
-                                    axios.get(`http://localhost:8080/get-user/${user._id}`)
+                                    axios.get(`https://arcane-shore-64990.herokuapp.com/get-user/${user._id}`)
                                         .then( response => props.addGoal(response.data))
                                         .catch( err => console.log(err))
        

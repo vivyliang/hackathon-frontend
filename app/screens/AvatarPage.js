@@ -12,7 +12,6 @@ import spriteF1 from '../assets/sprite-f1.gif';
 import spriteF2 from '../assets/sprite-f2.gif';
 
 const AvatarPage = (props) => {
-    console.log(props);
 
     const renderAvatar = () => {
         let avatar = "";

@@ -5,6 +5,7 @@ import * as RootNavigation from '../routes/routes';
 //for bottom tab bar
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { navigationRef } from '../routes/routes';
 const Tab = createBottomTabNavigator();
 
 //view stuff
@@ -14,6 +15,8 @@ import { styles } from '../constants/styles';
 
 import GoalsPage from "./GoalsPage";
 import AvatarPage from "./AvatarPage";
+import CreateGoalPage from "./CreateGoalPage";
+import ChatPage from "./ChatPage";
 
 function GoalFeedScreen() {
     return (
@@ -104,13 +107,14 @@ function BottomTab({ state, descriptors, navigation }) {
 }
 
 const HomePage = (props) => {
-    const user = props.auth.user;
+
     return (
-        <NavigationContainer independent={true}>
+        <NavigationContainer independent={true} ref={navigationRef}>
             <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
                 <Tab.Screen name='Goals' component={GoalsPage} />
-                <Tab.Screen name='Journey' component={GoalFeedScreen} />
+                <Tab.Screen name='Journey' component={CreateGoalPage} />
                 <Tab.Screen name='Avatar' component={AvatarPage} />
+                <Tab.Screen name='Chat' component={ChatPage} />
             </Tab.Navigator>
         </NavigationContainer>
     )
