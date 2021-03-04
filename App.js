@@ -30,7 +30,7 @@ export default class App extends Component {
             <Stack.Screen name="CreateCharacter" component={CreateCharacterPage} />
             <Stack.Screen name="Home" component={HomePage} />
             <Stack.Screen name="CreateGoal" component={CreateGoalPage} />
-            <Stack.Screen name="Goals" component={GoalsPage} />
+            {/* <Stack.Screen name="Goals" component={GoalsPage} /> */}
             <Stack.Screen name="Chat" component={ChatPage} />
           </Stack.Navigator>
         </NavigationContainer>

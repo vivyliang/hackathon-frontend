@@ -182,5 +182,21 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: '5%',
+    },
+    listView: {
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderTopColor: 'transparent',
+        width: Math.round(width) * 0.9,
+        alignSelf: 'center',
+        justifyContent: 'flex-end',
+        height: height * 0.15,
+    },
+    scrollView: {
+        height: height * 0.5,
+    },
+    scrollView2: {
+        height: height * 0.7,
+        marginTop: height * 0.1,
     }
 })

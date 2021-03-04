@@ -5,7 +5,10 @@ import * as RootNavigation from '../routes/routes';
 //for bottom tab bar
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+import { navigationRef } from '../routes/routes';
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 //view stuff
 import { View, Text, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
@@ -104,15 +107,14 @@ function BottomTab({ state, descriptors, navigation }) {
 }
 
 const HomePage = (props) => {
-    const user = props.auth.user;
     return (
-        <NavigationContainer independent={true}>
+        // <NavigationContainer independent={true} >
             <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
                 <Tab.Screen name='Goals' component={GoalsPage} />
                 <Tab.Screen name='Journey' component={GoalFeedScreen} />
                 <Tab.Screen name='Avatar' component={AvatarPage} />
             </Tab.Navigator>
-        </NavigationContainer>
+        // </NavigationContainer>
     )
 }
 

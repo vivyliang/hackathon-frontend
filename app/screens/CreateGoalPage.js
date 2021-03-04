@@ -7,7 +7,7 @@ import qs from "qs";
 import { addGoal } from '../actions/auth-action';
 
 //view stuff
-import { View, Text, ImageBackground, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
 import { TextInput, } from 'react-native-gesture-handler';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { styles } from '../constants/styles';
@@ -62,6 +62,10 @@ const CreateGoalPage = (props) => {
             <ImageBackground
                 style={styles.container}
                 source={require('../assets/creategoalpage.png')}>
+                    <View style={{marginTop: '10%'}}>
+                   <Icon raised name='keyboard-backspace' color='blue' containerStyle={styles.icon} onPress={() => RootNavigation.navigate('Home')} />
+                   </View>
+                    <ScrollView style={styles.scrollView2}>
                     <View style={styles.goalView}>
                         <DropDownPicker
                             items={[
@@ -151,7 +155,7 @@ const CreateGoalPage = (props) => {
                         <Text style={styles.buttonText}>Get Matched!</Text>
                     </TouchableOpacity>
                 </View>
-
+                </ScrollView>
 
             </ImageBackground>
         </View>
