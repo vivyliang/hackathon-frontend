@@ -85,7 +85,17 @@ class ChatPage extends React.Component {
         //console.log(result);
     
         if (!result.cancelled) {
-            this.setState({image: result.uri});
+            const imageMsg = {
+                _id: this.state.conversation.messages.length+1,
+                user: {
+                    _id: this.state.user._id,
+                    avatar: this.state.avatar
+                },
+                image: result.uri
+            }
+            this.onSend([imageMsg]);
+
+            //this.setState({image: result.uri});
         }
     };
     render() {
