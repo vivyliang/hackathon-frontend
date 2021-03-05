@@ -31,6 +31,7 @@ class JourneyPage extends React.Component {
     renderItem = ({ item }) => {
         //get percentage of goal progress for progress bar
         let prog = item.currentProgress / item.targetGoal;
+        let nodProg = Math.trunc(prog * 100);
         //get # of days left until goal complete
         const dDay = dayjs(item.deadline);
         let daysLeft = dDay.diff(dayjs(), 'day');
@@ -79,7 +80,7 @@ class JourneyPage extends React.Component {
                  img.push({img: this.state.imgArr[i].img, day: this.state.imgArr[i].day, prog: this.state.imgArr[i].prog, goal: pgoal});
             }
         }
-        
+        console.log(this.state.imgArr)
         return (
             <View style={styles.journeyFeed}>
 
@@ -110,7 +111,7 @@ class JourneyPage extends React.Component {
                         <View style={{ justifyContent: 'center' }}>
                             <Text style={{ fontSize: 15, color: 'grey' }}>goal: {goalname} for {item.targetGoal}km by {dDayFormatted}</Text>
                             <ProgressBar progress={prog} unfilledColor='lightgrey' width={270} color={'#59de78'} borderColor={'black'} />
-                            <Text style={{ fontSize: 15, color: 'grey' }}>{prog * 100}% complete</Text>
+                            <Text style={{ fontSize: 15, color: 'grey' }}>{nodProg}% complete</Text>
                         </View>
                         
                     </View>

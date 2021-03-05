@@ -45,7 +45,8 @@ class ChatPage extends React.Component {
                     conversation: { ...this.state.conversation, messages: receivedMsgs } 
                 }, () => {
                     if (
-                        this.state.conversation.messages[0].user._id !==  this.state.user._id 
+                        this.state.conversation.messages.length > 0
+                        && this.state.conversation.messages[0].user._id !==  this.state.user._id 
                         && this.state.conversation.messages[0].image 
                         && !this.state.conversation.messages[0].confirmed
                         && !this.state.conversation.messages[0].didSet
@@ -53,7 +54,8 @@ class ChatPage extends React.Component {
                             this.setState({confirmationModalVisible: true, needConfirmation: true });
     
                     } else if (
-                        this.state.conversation.messages[0].user._id ===  this.state.user._id 
+                        this.state.conversation.messages.length > 0
+                        && this.state.conversation.messages[0].user._id ===  this.state.user._id 
                         && this.state.conversation.messages[0].image 
                         && this.state.conversation.messages[0].confirmed
                         && this.state.conversation.messages[0].didSet
@@ -106,11 +108,12 @@ class ChatPage extends React.Component {
         }
         console.log(this.state.conversation._id)
     }
-    onSend = ((newMsgs = []) => {
-
+    onSend = ((newMsgs = [], confirmation = false) => {
+        console.log(this.state.conversation.messages.length)
+        console.log(newMsgs)
         //newMsgs = new message 
         //combine them and then sort them by time 
-        const msgs = newMsgs.length < this.state.conversation.messages.length ? this.state.conversation.messages.concat(newMsgs).sort((a, b) => {
+        const msgs = !confirmation ? this.state.conversation.messages.concat(newMsgs).sort((a, b) => {
             const msgA = dayjs(a.createdAt);
             return msgA.isBefore(dayjs(b.createdAt)) ? 1 : -1;
         }) : this.state.conversation.messages;
@@ -171,6 +174,7 @@ class ChatPage extends React.Component {
                 style={styles.container}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <View>
+                    {/* MODAL FOR SENDING POST */}
                     <Modal 
                         animationType="slide"
                         transparent={true}
@@ -205,6 +209,7 @@ class ChatPage extends React.Component {
                         </View>
                         </View>
                     </Modal>
+                    {/* MODAL FOR RECEIVING POST */}
                     <Modal 
                         animationType="slide"
                         transparent={true}
@@ -232,7 +237,7 @@ class ChatPage extends React.Component {
                                     let messages = this.state.conversation.messages;
                                     messages[0].confirmed = true;
                                     messages[0].didSet = true;
-                                    this.onSend(messages);
+                                    this.onSend(messages, true);
 
                                     let reqBody = {
                                         goal: {
@@ -273,19 +278,36 @@ class ChatPage extends React.Component {
                             </View>
                         </View>
                     </Modal>
+                    {/* MODAL FOR COMPLETING GOAL */}
                     <Modal animationType="slide"
-                        transparent={false}
+                        transparent={true}
                         visible={this.state.goalCompleted}
                         onRequestClose={() => {
-                            this.setState({modalVisible: false})
+                            this.setState({ modalVisible: false })
                         }}>
-                            <View>
-                                <Text>
-                                    Congrats! You have completed your goal!
-                                </Text>
-                                <Text>Here is your new item: </Text>
+                        <View style={styles.centered, { marginTop: '50%' }}>
+                            <View style={styles.modalView}>
+                                <View style={{ flexDirection: 'row' }}>
+                                <Icon size={25} name='star' type='font-awesome-5' color='#ffdb3d' />
+                                <Icon size={25} name='star' type='font-awesome-5' color='#ffdb3d' />
+                                <View style={{justifyContent: 'center'}}>
+                                    <Text style={{ marginBottom: '2%', textAlign: 'center', fontSize: 20 }}>Congrats!</Text>
+                                    </View>
+                                    <Icon size={25} name='star' type='font-awesome-5' color='#ffdb3d' />
+                                <Icon size={25} name='star' type='font-awesome-5' color='#ffdb3d' />
+                                </View>
+                                
+                                <Text style={{ marginBottom: '5%', textAlign: 'center'}}>You've completed your goal</Text>
+                                <Text style={{ marginBottom: '2%', textAlign: 'center'}}>Here's your new item:</Text>
+                                <Image style={styles.items} source={require('../assets/pshoe.png')} />
+                                <TouchableOpacity
+                                style={styles.longButton}
+                                onPress={() => {this.setState({goalCompleted: false}) }} >
+                                    <Text style={styles.buttonText}>keep cheering for your buddy!</Text>
+                            </TouchableOpacity>
                             </View>
-                        </Modal>
+                        </View>
+                    </Modal>
                     <ImageBackground  style={{ height: Dimensions.get('window').height * 0.12, width: Dimensions.get('window').width }} source={require('../assets/chatheader.png')}>
                         <Icon raised name='keyboard-backspace' iconStyle={{ color: 'black' }} containerStyle={{position: 'relative', marginTop: '10%'}} onPress={() => RootNavigation.navigate('Home')} />
                         <Text style={styles.headerText}> {this.state.goal.buddy.username}</Text>

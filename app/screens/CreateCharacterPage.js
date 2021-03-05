@@ -91,7 +91,7 @@ const CreateCharacterPage = (props) => {
                 </View>
                 <View style={{ marginBottom: '10%' }} />
                 <TouchableOpacity
-                    style={styles.loginButton}
+                    style={styles.charButton}
                     onPress={() => {
                         user.avatar = imgStr;
                         props.register(user);

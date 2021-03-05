@@ -25,7 +25,7 @@ const GoalsPage = (props) => {
         let iconname = '';
         if (item.goalType.name === 'Running') {
             iconname = 'running';
-        } else if (item.goalType.name === 'Weightligting') {
+        } else if (item.goalType.name === 'Weightlifting') {
             iconname = 'dumbbell';
         } else if (item.goalType.name === 'Swimming') {
             iconname = 'swimmer';

@@ -86,6 +86,29 @@ export const styles = StyleSheet.create({
         alignSelf: "center",
         zIndex: -1
     },
+    charButton: {
+        width: Math.round(width) * 0.6,
+        backgroundColor: "#000",
+        borderRadius: 3,
+        height: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 15,
+        marginTop: "2%",
+        alignSelf: "center",
+    },
+    longButton: {
+        width: Math.round(width) * 0.6,
+        backgroundColor: "#000",
+        borderRadius: 3,
+        height: 10,
+        justifyContent: "center",
+        alignItems: "center",
+        padding: 15,
+        marginTop: "2%",
+        alignSelf: "center",
+        zIndex: -1
+    },
     maleButton: {
         width: "25%",
         backgroundColor: "#2225f0",
