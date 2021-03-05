@@ -75,9 +75,6 @@ const GoalsPage = (props) => {
             <ImageBackground
                 style={styles.container}
                 source={require('../assets/currentgoalspage.png')}>
-                {/* <View styles={styles.rowView}>
-                {goalBlocks}
-            </View> */}
                 <View style={{ justifyContent: 'flex-start', marginTop: '65%' }}>
                     <Icon reverse name='ios-add-outline' type='ionicon' color='#ff5454' onPress={() => { RootNavigation.navigate('CreateGoal') }} />
                 </View>

@@ -110,13 +110,11 @@ function BottomTab({ state, descriptors, navigation }) {
 
 const HomePage = (props) => {
     return (
-        // <NavigationContainer independent={true} >
-            <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
-                <Tab.Screen name='Goals' component={GoalsPage} />
-                <Tab.Screen name='Journey' component={CreateGoalPage} />
-                <Tab.Screen name='Avatar' component={AvatarPage} />
-            </Tab.Navigator>
-        // </NavigationContainer>
+        <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
+            <Tab.Screen name='Goals' component={GoalsPage} />
+            <Tab.Screen name='Journey' component={CreateGoalPage} />
+            <Tab.Screen name='Avatar' component={AvatarPage} />
+        </Tab.Navigator>
     )
 }
 
