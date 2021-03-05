@@ -37,22 +37,36 @@ class ChatPage extends React.Component {
         conversation: this.props.route.params.conversation,
         goal: this.props.route.params.goal,
         needConfirmation: false,
+        goalCompleted: false,
         confirmationModalVisible: false,
-        receiveMsg: (receivedMsgs = []) => {
-            this.setState({ 
-                conversation: { ...this.state.conversation, messages: receivedMsgs } 
-            }, () => {
+        receiveMsg: (receivedMsgs = [], conversationID) => {
+            if (conversationID === this.state.conversation._id) {
+                this.setState({ 
+                    conversation: { ...this.state.conversation, messages: receivedMsgs } 
+                }, () => {
+                    if (
+                        this.state.conversation.messages[0].user._id !==  this.state.user._id 
+                        && this.state.conversation.messages[0].image 
+                        && !this.state.conversation.messages[0].confirmed
+                        && !this.state.conversation.messages[0].didSet
+                        ) { 
+                            this.setState({confirmationModalVisible: true, needConfirmation: true });
+    
+                    } else if (
+                        this.state.conversation.messages[0].user._id ===  this.state.user._id 
+                        && this.state.conversation.messages[0].image 
+                        && this.state.conversation.messages[0].confirmed
+                        && this.state.conversation.messages[0].didSet
+                        ) {
 
-                if (
-                    this.state.conversation.messages[0].user._id !==  this.state.user._id 
-                    && this.state.conversation.messages[0].image 
-                    && !this.state.conversation.messages[0].confirmed
-                    && !this.state.conversation.messages[0].didSet
-                    ) { 
-                        this.setState({confirmationModalVisible: true, needConfirmation: true });
-                }
-                     
-            });
+                            const totalCurrent = parseInt(this.state.conversation.messages[0].progressToGoal) + this.state.goal.currentProgress;
+                            if (totalCurrent >= this.state.goal.targetGoal) {
+                                this.setState({goalCompleted: true});
+                            }
+                        }
+                         
+                });
+            }
         },
         avatar: '',
         modalVisible: false
@@ -62,8 +76,8 @@ class ChatPage extends React.Component {
         socket.on("connect", () => {
             console.log("connected");
             this.setState({ socket }, () => {
-                this.state.socket.on("from server", (msg => {
-                    this.state.receiveMsg(msg);
+                this.state.socket.on("from server", (data => {
+                    this.state.receiveMsg(data.newMessages, data.conversation);
                 }))
 
                 if (
@@ -148,9 +162,6 @@ class ChatPage extends React.Component {
     };
     sendImage = () => {
         this.onSend([this.state.imageMsg]);
-    }
-    confirmProgress = () => {
-
     }
     render() {
        if (this.state.needConfirmation) {console.log(this.state.conversation.messages[0].image) }
@@ -261,6 +272,19 @@ class ChatPage extends React.Component {
                             </View>
                         </View>
                     </Modal>
+                    <Modal animationType="slide"
+                        transparent={false}
+                        visible={this.state.goalCompleted}
+                        onRequestClose={() => {
+                            this.setState({modalVisible: false})
+                        }}>
+                            <View>
+                                <Text>
+                                    Congrats! You have completed your goal!
+                                </Text>
+                                <Text>Here is your new item: </Text>
+                            </View>
+                        </Modal>
                     <ImageBackground  style={{ height: Dimensions.get('window').height * 0.12, width: Dimensions.get('window').width }} source={require('../assets/chatheader.png')}>
                         <Icon raised name='keyboard-backspace' iconStyle={{ color: 'black' }} containerStyle={{position: 'relative', marginTop: '10%'}} onPress={() => RootNavigation.navigate('Home')} />
                         <Text style={styles.headerText}> {this.state.goal.buddy.username}</Text>
