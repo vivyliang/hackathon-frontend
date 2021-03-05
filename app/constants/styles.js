@@ -210,6 +210,12 @@ export const styles = StyleSheet.create({
         marginTop: '2%',
         backgroundColor: 'lightblue',
     },
+    itemScroll: {
+        width: width,
+        backgroundColor: 'lightpink',
+        marginTop: height * 0.1,
+        borderWidth: 1,
+    },
     journeyFeed: {
         borderWidth: 1,
         borderStyle: 'dashed',
@@ -246,4 +252,8 @@ export const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5
       },
+    items: {
+        height: 100,
+        width: 100
+    }
 })

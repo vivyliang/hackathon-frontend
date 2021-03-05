@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as RootNavigation from '../routes/routes';
 
-import { View, Text, ImageBackground, TouchableOpacity, Dimensions, Image } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, ScrollView, Image } from 'react-native';
 import { styles } from '../constants/styles';
 
 //import characters
@@ -30,18 +30,27 @@ const AvatarPage = (props) => {
 
         return <Image style={styles.avatarimg} source={avatar} />
     }
-    
+
     return (
         <View style={styles.container}>
-        <ImageBackground
-            style={styles.container}
-            source={require('../assets/avatarroom.png')}>
-            {renderAvatar()}
+            <ImageBackground
+                style={styles.container}
+                source={require('../assets/avatarroom.png')}>
+                <View style={{ marginTop: '60%' }}>
+                    {renderAvatar()}
+                </View>
+                <ScrollView horizontal={true} style={styles.itemScroll}>
+                    <Image style={styles.items} source={require('../assets/pshoe.png')} />
+                    <Image style={styles.items} source={require('../assets/hat.png')} />
+                    <Image style={styles.items} source={require('../assets/rshoe.png')} />
+                    <Image style={styles.items} source={require('../assets/book.png')} />
+                    <Image style={styles.items} source={require('../assets/ball.png')} />
+                </ScrollView>
             </ImageBackground>
         </View>
     )
 }
 
-const mapStateToProps = state => ({user: state.auth.user});
+const mapStateToProps = state => ({ user: state.auth.user });
 
 export default connect(mapStateToProps)(AvatarPage);

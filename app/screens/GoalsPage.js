@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as RootNavigation from '../routes/routes';
 import dayjs from 'dayjs';
@@ -41,9 +41,9 @@ const GoalsPage = (props) => {
             <View style={styles.listView}>
                 <TouchableOpacity onPress={() => {
                     if (item.conversation) {
-                        axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation}`)
-                            .then(conversation => RootNavigation.navigate("Chat", { goal: item, conversation: conversation.data }))
-                            .catch(err => console.log(err));
+                        axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation._id}`)
+                            .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
+                            .catch( err => console.log(err));
                     }
                     // RootNavigation.navigate('Chat', { goal: item }) 
                 }}>
