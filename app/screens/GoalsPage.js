@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as RootNavigation from '../routes/routes';
 import dayjs from 'dayjs';

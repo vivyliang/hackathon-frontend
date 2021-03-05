@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as RootNavigation from '../routes/routes';
 import { io } from 'socket.io-client';
 import { GiftedChat } from 'react-native-gifted-chat';
 import dayjs from "dayjs";
+import qs from "qs";
 import * as ImagePicker from "expo-image-picker";
 
 import { 
@@ -12,7 +13,6 @@ import {
     ImageBackground, 
     TouchableOpacity, 
     Dimensions, 
-    KeyboardAvoidingView, 
     Modal, 
     LogBox, 
     Image } from 'react-native';
@@ -25,6 +25,7 @@ import spriteM1 from '../assets/sprite-m1.gif';
 import spriteM2 from '../assets/sprite-m2.gif';
 import spriteF1 from '../assets/sprite-f1.gif';
 import spriteF2 from '../assets/sprite-f2.gif';
+import axios from 'axios';
 
 LogBox.ignoreAllLogs();
 
@@ -62,10 +63,18 @@ class ChatPage extends React.Component {
             console.log("connected");
             this.setState({ socket }, () => {
                 this.state.socket.on("from server", (msg => {
-                    console.log("hello")
                     this.state.receiveMsg(msg);
-                    console.log(msg);
                 }))
+
+                if (
+                    this.state.conversation.messages[0].user._id !==  this.state.user._id 
+                    && this.state.conversation.messages[0].image 
+                    && !this.state.conversation.messages[0].confirmed
+                    && !this.state.conversation.messages[0].didSet
+                    ) { 
+                        this.setState({confirmationModalVisible: true, needConfirmation: true });
+                }
+
             })
         })
 
@@ -143,7 +152,6 @@ class ChatPage extends React.Component {
 
     }
     render() {
-        console.log(this.state.avatar)
         return (
             <View
                 style={styles.container}
@@ -193,9 +201,26 @@ class ChatPage extends React.Component {
                                     messages[0].didSet = true;
                                     this.onSend(messages);
 
-                                    
+                                    let reqBody = {
+                                        goal: {
+                                            id: messages[0].goal,
+                                            progress: messages[0].progressToGoal
+                                        },
+                                        user: messages[0].user._id
+                                    }
 
-                                    this.setState({confirmationModalVisible: false})
+                                    axios.put(
+                                        "https://arcane-shore-64990.herokuapp.com/update-goal", 
+                                        qs.stringify(reqBody), 
+                                        { headers: { 'content-type': 'application/x-www-form-urlencoded' }}
+                                    ).then( (response) => {
+                                        this.setState({confirmationModalVisible: false})
+                                    }).catch( err => {
+                                        console.log(err);
+                                        this.setState({confirmationModalVisible: false})
+                                    })
+
+                                    
                                 }} >
                                     <Text style={styles.buttonText}>YES</Text>
                             </TouchableOpacity>
