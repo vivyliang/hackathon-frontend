@@ -18,6 +18,13 @@ export default(state = initState, action) => {
             return initState;
         case userConst.LOGOUT:
             return initState;
+        case userConst.REGSITER_SUCCESS:
+            return {
+                ...state,
+                user: {...action.userData.data},
+            };
+        case userConst.REGISTER_FAILTURE:
+            return initState;
         default:
             return state;
     }

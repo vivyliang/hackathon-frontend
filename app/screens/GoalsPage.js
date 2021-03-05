@@ -13,7 +13,7 @@ const GoalsPage = (props) => {
     //bolded text
     const B = (props) => <Text style={{ fontWeight: 'bold' }}>{props.children}</Text>
     const user = props.auth.user;
-    
+
     //render flatlist for goals
     const renderItem = ({ item }) => {
         //get percentage of goal progress for progress bar
@@ -39,14 +39,14 @@ const GoalsPage = (props) => {
 
         return (
             <View style={styles.listView}>
-                <TouchableOpacity onPress={() => { 
+                <TouchableOpacity onPress={() => {
                     if (item.conversation) {
                         axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation}`)
-                            .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
-                            .catch( err => console.log(err));
+                            .then(conversation => RootNavigation.navigate("Chat", { goal: item, conversation: conversation.data }))
+                            .catch(err => console.log(err));
                     }
                     // RootNavigation.navigate('Chat', { goal: item }) 
-                    }}>
+                }}>
                     <View style={{ position: 'relative', alignSelf: 'flex-end', }} >
                         <Icon reverse size={15} name={iconname} type='font-awesome-5' reverseColor='#4d70ff' />
                     </View>
@@ -82,11 +82,13 @@ const GoalsPage = (props) => {
                     <Icon reverse name='ios-add-outline' type='ionicon' color='#ff5454' onPress={() => { RootNavigation.navigate('CreateGoal') }} />
                 </View>
                 <SafeAreaView style={styles.scrollView}>
+                    {(user.goals.length > 0) ? 
                     <FlatList
                         data={user.goals}
                         renderItem={renderItem}
                         keyExtractor={item => item._id}
                     />
+                    : <View /> }
                 </SafeAreaView>
             </ImageBackground>
         </View>

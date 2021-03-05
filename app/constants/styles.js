@@ -200,6 +200,24 @@ export const styles = StyleSheet.create({
         height: height * 0.7,
         marginTop: height * 0.1,
     },
+    journeyScroll: {
+        height: height * 0.85,
+        marginTop: height * 0.18,
+    },
+    horizontalScroll: {
+        height: height * 0.25,
+        width: width,
+        marginTop: '2%',
+        backgroundColor: 'lightblue',
+    },
+    journeyFeed: {
+        borderWidth: 1,
+        borderStyle: 'dashed',
+        width: Math.round(width),
+        alignSelf: 'center',
+        justifyContent: 'flex-start',
+        height: height * 0.45,
+    },
     headerText: {
         position: 'relative',
         fontSize: 30,
@@ -207,4 +225,25 @@ export const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: '-12%',
     },
+    avatarimg: {
+        alignSelf: 'center', 
+        marginTop: 150,
+        width: width * 0.2,
+        height: height * 0.2,
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5
+      },
 })

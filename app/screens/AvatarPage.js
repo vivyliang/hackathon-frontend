@@ -28,13 +28,16 @@ const AvatarPage = (props) => {
             }
         }
 
-        return <Image style={{alignSelf: 'center'}} source={avatar} />
+        return <Image style={styles.avatarimg} source={avatar} />
     }
     
     return (
-        <View>
-            <Text>Avatar</Text>
+        <View style={styles.container}>
+        <ImageBackground
+            style={styles.container}
+            source={require('../assets/avatarroom.png')}>
             {renderAvatar()}
+            </ImageBackground>
         </View>
     )
 }

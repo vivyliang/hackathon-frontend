@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import * as RootNavigation from '../routes/routes';
+import axios from "axios";
 
 //for bottom tab bar
 import { NavigationContainer } from '@react-navigation/native';
@@ -18,7 +19,7 @@ import { styles } from '../constants/styles';
 import GoalsPage from "./GoalsPage";
 import AvatarPage from "./AvatarPage";
 import CreateGoalPage from "./CreateGoalPage";
-import ChatPage from "./ChatPage";
+import JourneyPage from "./JourneyPage";
 
 function GoalFeedScreen() {
     return (
@@ -51,7 +52,7 @@ function BottomTab({ state, descriptors, navigation }) {
                     options.tabBarLabel = 
                     <View key={index} style={styles.singleTab}>
                         <Icon size={40} name='ios-golf-outline' type='ionicon' color='white' />
-                        <Text style={styles.buttonText}>JOUNEY</Text>
+                        <Text style={styles.buttonText}>JOURNEY</Text>
                     </View>
                 } else if (route.name === 'Avatar') {
                     options.tabBarLabel = 
@@ -75,10 +76,11 @@ function BottomTab({ state, descriptors, navigation }) {
                         type: 'tabPress',
                         target: route.key,
                     });
-
+                    
                     if (!isFocused && !event.defaultPrevented) {
                         navigation.navigate(route.name);
                     }
+                    
                 };
 
                 const onLongPress = () => {
@@ -113,7 +115,7 @@ const HomePage = (props) => {
         // <NavigationContainer independent={true} >
             <Tab.Navigator tabBar={props => <BottomTab {...props} />}>
                 <Tab.Screen name='Goals' component={GoalsPage} />
-                <Tab.Screen name='Journey' component={CreateGoalPage} />
+                <Tab.Screen name='Journey' component={JourneyPage} />
                 <Tab.Screen name='Avatar' component={AvatarPage} />
             </Tab.Navigator>
         // </NavigationContainer>

@@ -55,13 +55,6 @@ const LoginPage = (props) => {
                         <Text style={styles.signUpButton}>Sign up here</Text>
                         </View>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.loginButton}
-                    onPress={() => {
-                        RootNavigation.navigate('CreateCharacter')
-                    }} >
-                        <Text style={styles.buttonText}>test</Text>
-                </TouchableOpacity>
             </ImageBackground>
         </View>
     );
