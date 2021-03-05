@@ -41,7 +41,7 @@ const GoalsPage = (props) => {
             <View style={styles.listView}>
                 <TouchableOpacity onPress={() => { 
                     if (item.conversation) {
-                        axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation}`)
+                        axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation._id}`)
                             .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
                             .catch( err => console.log(err));
                     }
