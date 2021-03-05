@@ -81,7 +81,8 @@ class ChatPage extends React.Component {
                 }))
 
                 if (
-                    this.state.conversation.messages[0].user._id !==  this.state.user._id 
+                    this.state.conversation.messages.length > 0 
+                    && this.state.conversation.messages[0].user._id !==  this.state.user._id 
                     && this.state.conversation.messages[0].image 
                     && !this.state.conversation.messages[0].confirmed
                     && !this.state.conversation.messages[0].didSet
