@@ -37,37 +37,40 @@ const GoalsPage = (props) => {
             iconname = 'basketball-ball';
         }
 
-        return (
-            <View style={styles.listView}>
-                <TouchableOpacity onPress={() => {
-                    if (item.conversation) {
-                        axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${item.conversation._id}`)
-                            .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
-                            .catch( err => console.log(err));
-                    }
-                    // RootNavigation.navigate('Chat', { goal: item }) 
-                }}>
-                    <View style={{ position: 'relative', alignSelf: 'flex-end', }} >
-                        <Icon reverse size={15} name={iconname} type='font-awesome-5' reverseColor='#4d70ff' />
-                    </View>
-                    <View style={{ backgroundColor: 'darkgrey', width: '97%', alignSelf: 'flex-end', margin: 5, padding: 5 }}>
-                        <Text style={{ fontSize: 15 }}>{(item.buddy && Object.keys(item.buddy).length > 0) ? 'Matched with: ' + item.buddy.username + ' (click to chat!)' : "Match Pending..."}</Text>
-                    </View>
-
-
-                    <View style={styles.rowView}>
-                        <View style={{ backgroundColor: 'lightblue', width: '50%', borderRadius: 25, alignSelf: 'flex-end', margin: 5 }}>
-                            <Text style={{ padding: 5, fontSize: 12, alignSelf: 'center' }}>Goal Category: <B>{item.goalType.category}</B></Text>
+        if (prog < 1) {
+            return (
+                <View key={item._id} style={styles.listView}>
+                    <TouchableOpacity onPress={() => {
+                        if (item.conversation) {
+                            const convId = typeof item.conversation === 'string' ? item.conversation : item.conversation._id
+                            axios.get(`https://arcane-shore-64990.herokuapp.com/get-convo/${convId}`)
+                                .then( conversation => RootNavigation.navigate("Chat", {goal: item, conversation: conversation.data}))
+                                .catch( err => console.log(err));
+                        }
+                    }}>
+                        <View style={{ position: 'relative', alignSelf: 'flex-end', }} >
+                            <Icon reverse size={15} name={iconname} type='font-awesome-5' reverseColor='#4d70ff' />
                         </View>
-                        <Text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
-                        <View style={{ borderRadius: 33, backgroundColor: 'lightpink', margin: 5, padding: 5 }}>
-                            <Text style={{ fontSize: 10 }}>{daysLeft} days left</Text>
+                        <View style={{ backgroundColor: 'darkgrey', width: '97%', alignSelf: 'flex-end', margin: 5, padding: 5 }}>
+                            <Text style={{ fontSize: 15 }}>{(item.buddy && Object.keys(item.buddy).length > 0) ? 'Matched with: ' + item.buddy.username + ' (click to chat!)' : "Match Pending..."}</Text>
                         </View>
-                    </View>
-                    <ProgressBar progress={prog} unfilledColor='lightgrey' width={350} color={'#59de78'} borderColor={'black'} />
-                </TouchableOpacity>
-            </View>
-        )
+    
+    
+                        <View style={styles.rowView}>
+                            <View style={{ backgroundColor: 'lightblue', width: '50%', borderRadius: 25, alignSelf: 'flex-end', margin: 5 }}>
+                                <Text style={{ padding: 5, fontSize: 12, alignSelf: 'center' }}>Goal Category: <B>{item.goalType.category}</B></Text>
+                            </View>
+                            <Text>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</Text>
+                            <View style={{ borderRadius: 33, backgroundColor: 'lightpink', margin: 5, padding: 5 }}>
+                                <Text style={{ fontSize: 10 }}>{daysLeft} days left</Text>
+                            </View>
+                        </View>
+                        <ProgressBar progress={prog} unfilledColor='lightgrey' width={350} color={'#59de78'} borderColor={'black'} />
+                    </TouchableOpacity>
+                </View>
+            )
+        }
+        
     }
 
     return (

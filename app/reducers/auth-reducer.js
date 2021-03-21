@@ -14,6 +14,11 @@ export default(state = initState, action) => {
                 ...state,
                 user: {...action.userData}
             }
+        case userConst.UPDATE_USER:
+            return {
+                ...state,
+                user: {...action.userData}
+            }
         case userConst.LOGIN_FAILURE:
             return initState;
         case userConst.LOGOUT:

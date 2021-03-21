@@ -147,9 +147,11 @@ const CreateGoalPage = (props) => {
 
                             axios.post("https://arcane-shore-64990.herokuapp.com/add-user-to-goal", qs.stringify(data), { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                                 .then((response) => {
-                                    console.log('hi')
                                     axios.get(`https://arcane-shore-64990.herokuapp.com/get-user/${user._id}`)
-                                        .then( response => props.addGoal(response.data))
+                                        .then( getResponse => {
+                                            props.addGoal(getResponse.data);
+                                            RootNavigation.navigate("Goals");
+                                        })
                                         .catch( err => console.log(err))
        
                                 })

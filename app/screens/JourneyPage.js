@@ -18,17 +18,11 @@ class JourneyPage extends React.Component {
         currDay: '',
         currProg: '',
         pgoal: '',
-    }
-    //bolded text
-    //  const B = (props) => <Text style={{ fontWeight: 'bold' }}>{props.children}</Text>
-
-    componentDidMount() {
-        //hehe
-        
-        //console.log(this.state.imgArr)
+        didRender: false
     }
     //render flatlist for goals
     renderItem = ({ item }) => {
+
         //get percentage of goal progress for progress bar
         let prog = item.currentProgress / item.targetGoal;
         let nodProg = Math.trunc(prog * 100);
@@ -67,20 +61,23 @@ class JourneyPage extends React.Component {
             pgoal = 'played';
         }
         //to get img
-        if (item.conversation) {
+        let imgArr = [];
+        if (item.conversation && this.state.imgArr.length < 1) {
             for (let j = 0; j < item.conversation.messages.length; ++j) {
                 if (item.conversation.messages[j].confirmed && item.conversation.messages[j].didSet) {
-                    this.state.imgArr.push({img: item.conversation.messages[j].image, day: item.conversation.messages[j].createdAt, prog: item.conversation.messages[j].progressToGoal, goalid: item.conversation.messages[j].goal});
+                    imgArr.push({ img: item.conversation.messages[j].image, day: item.conversation.messages[j].createdAt, prog: item.conversation.messages[j].progressToGoal, goalid: item.conversation.messages[j].goal });
                 }
             }
         }
+
+
         let img = [];
-        for (let i = 0; i < this.state.imgArr.length; ++i) {
-            if (item.conversation && this.state.imgArr[i].img.length > 0 && item._id === this.state.imgArr[i].goalid) {
-                 img.push({img: this.state.imgArr[i].img, day: this.state.imgArr[i].day, prog: this.state.imgArr[i].prog, goal: pgoal});
+        for (let i = 0; i < imgArr.length; ++i) {
+            if (item.conversation && imgArr[i].img.length > 0 && item._id === imgArr[i].goalid) {
+                img.push({ img: imgArr[i].img, day: imgArr[i].day, prog: imgArr[i].prog, goal: pgoal });
             }
         }
-        console.log(this.state.imgArr)
+
         return (
             <View style={styles.journeyFeed}>
 
@@ -113,7 +110,7 @@ class JourneyPage extends React.Component {
                             <ProgressBar progress={prog} unfilledColor='lightgrey' width={270} color={'#59de78'} borderColor={'black'} />
                             <Text style={{ fontSize: 15, color: 'grey' }}>{nodProg}% complete</Text>
                         </View>
-                        
+
                     </View>
                     <ScrollView horizontal={true} style={styles.horizontalScroll}>
                         {
@@ -133,11 +130,15 @@ class JourneyPage extends React.Component {
                                 })
                                 : <View />
                         }
-                        
+
                     </ScrollView>
                 </View>
             </View>
         )
+
+
+
+
     }
     render() {
 

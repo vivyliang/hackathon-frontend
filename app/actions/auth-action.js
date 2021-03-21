@@ -22,7 +22,6 @@ export const login = (userObj) => dispatch => {
 };
 
 export const addGoal = (userData) => {
-    RootNavigation.navigate("Goals");
     return (
         {
             type: userConst.ADD_GOAL,
@@ -30,6 +29,11 @@ export const addGoal = (userData) => {
         }
     )
 }
+
+export const updateUser = (userData) => ({
+    type: userConst.UPDATE_USER,
+    userData
+})
 
 
 export const loginSuccess = (userData) => ({
